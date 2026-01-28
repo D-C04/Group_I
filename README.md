@@ -2,7 +2,7 @@
 Repository containing documents relating to the ENSE 281 Group Project
 
 ## Project Introduction/ Background 📍
-xyz  
+Food waste xyz 
 
 ## Group Members 🤝
 Zifran Chowdhury   
