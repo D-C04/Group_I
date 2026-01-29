@@ -6,7 +6,7 @@ Food waste xyz
 
 ## Reason 💭
 
-## Imapct
+## Impact
 
 ## North Star Customers 💫
 
