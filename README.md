@@ -1,22 +1,23 @@
-# Group_I 
+# Group I 
 
 This repository contains all documents relating to the ENSE 281 Group Project done by Group I
 
-# Project Introduction & Background 📍
+# Project Introduction & Background 📝
 
-Food waste xyz 
+This web application aims to reduce household food waste and aid in decision making by creating a system that provides its users with various recipes and the tools to track expiration of the food they have at home.
 
-# Our Purpose 💭
+## Business Opportunity 📍
 
-xyz
+The project will allow users to faster and easier access to a variety of recipes without scouring the web. Users will be able to adequately plan meals and maintain awareness of the quality of food in their pantry.
 
-# Minimum Viable Products (MVPs)
+# Minimum Viable Product (MVP) 💻
 
-Users are able to input groceries.  
+This web application will allow for: 
+* Users to input grocery items 
+* Users to browse, filter and save recipes
+* Notifications to users on when their items will expire
 
-Users are able to browse, filter and save recipes.
-
-# Intended Impact
+# Intended Impact 🕖
 
 The current reality of food waste and disorganization becomes a new reality where food usage is intentional, efficient, and cost-effective.  
 
@@ -26,14 +27,14 @@ We envision a simple system where:
   - Waste is minimized
   - Meal planning is partially automated based on what is already available
 
-# Target Customers🎯
+# Target Customers 🎯 
 
 Our main audience includes:
   - Home cooks and budget-conscious individuals
   - Families managing large or shared food inventories
   - Students or roommates sharing fridge and pantry space
 
-# Team 🤝
+# Team 🤝 
 
 ![ZacEfronVanessaHudgensGIF](https://github.com/user-attachments/assets/d2db420b-c50c-4c41-9c25-37d82267bd00)   
 
@@ -42,8 +43,8 @@ Our main audience includes:
 - Ikechukwu Ogowuihe  
 - Emmanuel Dairo
 
-# Project Status
+# Project Status 🟡
 
-🟡Initialization Phase  
+Initialization Phase  
 
 ![InitializingSativaGIF](https://github.com/user-attachments/assets/5187c9d6-9ab8-4c3c-9f92-67c9ae0d3246)
