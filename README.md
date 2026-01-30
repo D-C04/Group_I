@@ -1,3 +1,7 @@
+<h1 align="center">
+    <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&color=b6d7a8&random=falsesize=35&center=true&vCenter=true&width=500&height=70&duration=2000&lines=Hi+There!+👋;+We+Are+Group+I+👥;" />
+</h1>
+
 # Group I 
 
 This repository contains all documents relating to the ENSE 281 Group Project done by Group I
