@@ -1,5 +1,5 @@
 # Project Pitch and Initialization Stage
-This folder contains all the documents for the first stage.
+This folder contains all the documents required for the first stage.
 The files present are:
 
 A.) Our Project Presentation slideshow used in pitching, which is in both .pptx and .pdf format.
