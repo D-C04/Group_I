@@ -30,6 +30,7 @@ We envision a simple system where:
   - Expiry dates are visible and actionable
   - Waste is minimized
   - Meal planning is partially automated based on what is already available
+  - Unnecesary grocery spending is reduced
 
 # Target Customers 🎯 
 
