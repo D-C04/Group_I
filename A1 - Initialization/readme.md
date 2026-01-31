@@ -4,7 +4,7 @@ The files present are:
 
 A.) Our Project Presentation slide used in pitching which is both in pptx and pdf format.
 
-B.) A subfolder called Project Management Document which 3 documents which are listed below:
+B.) A subfolder called Project Management Document with 3 documents which are listed below:
 
  1.) A Business Case document which shows our Business (Project) Background, opportunties, the options we had for the design ideas and the final design.
    
