@@ -8,11 +8,11 @@ This repository contains all documents relating to the ENSE 281 Group Project do
 
 # Project Introduction & Background 📝
 
-This web application aims to reduce household food waste and aid in decision making by creating a system that provides its users with various recipes and the tools to track expiration of the food they have at home.
+This web application aims to reduce household food waste and aid in decision making by creating a system that provides its users with various recipes and the tools to track of food inventory whilst alerting them to food expiration dates and period.
 
 ## Business Opportunity 📍
 
-The project will allow users to faster and easier access to a variety of recipes without scouring the web. Users will be able to adequately plan meals and maintain awareness of the quality of food in their pantry.
+The project will allow users to keep track of their food inventory and give access to a variety of recipes without having to think too much. Users will be able to adequately plan meals and maintain awareness of the quality of food in their pantry.
 
 # Minimum Viable Product (MVP) 💻
 
