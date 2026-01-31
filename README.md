@@ -12,7 +12,7 @@ This web application aims to reduce household food waste and aid in decision mak
 
 ## Business Opportunity 📍
 
-The project will allow users to keep track of their food inventory and give access to a variety of recipes without having to think too much. Users will be able to adequately plan meals and maintain awareness of the quality of food in their pantry.
+The project will allow users to keep track of their food inventory and give user access to a variety of recipes based off said inventory, hence, assisting the users decison making on what to eat. Users will be able to adequately plan meals and maintain awareness of the quality of food in their inventory whilst also cutting food wastage and cost, eating better and healthier.
 
 # Minimum Viable Product (MVP) 💻
 
