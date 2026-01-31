@@ -38,9 +38,7 @@ Our main audience includes:
   - Families managing large or shared food inventories
   - Students or roommates sharing fridge and pantry space
 
-# Team 🤝 
-
-![ZacEfronVanessaHudgensGIF](https://github.com/user-attachments/assets/d2db420b-c50c-4c41-9c25-37d82267bd00)   
+# Team 🤝   
 
 - Zifran Chowdhury   
 - Deran Cross     
