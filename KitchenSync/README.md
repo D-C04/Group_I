@@ -1,7 +1,7 @@
 # KitchenSync - Frontend MVP
 
 ## What is this?
-These are the HTML/CSS/Bootstrap 5 frontend files for the KitchenSync app, converted from our Figma high-fidelity prototype.
+These are the HTML/CSS/Bootstrap 5 frontend files for the KitchenSync app.
 
 ## How to Run
 1. Open the `kitchensync` folder in **VSCode**
