@@ -46,8 +46,6 @@ Our main audience includes:
 - Ikechukwu Ogowuihe  
 - Emmanuel Dairo
 
-## Project Status 🟢
+## Project Status 🟡
 
-We are officially in the Construction Phase, working towards building our code and system architecture.
-
-![gifconstructionphase](https://github.com/user-attachments/assets/4b074b0c-23bf-4ffa-a3b0-3985e4a41566)
+We have mostly completed the UI. Back end development is in progress
