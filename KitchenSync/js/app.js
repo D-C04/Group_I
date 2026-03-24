@@ -146,22 +146,44 @@ document.addEventListener('DOMContentLoaded', function () {
   // ============================================
   // 6. SIGN IN FORM (Login page)
   // ============================================
-  var loginForm = document.getElementById('loginForm');
+  // var loginForm = document.getElementById('loginForm');
 
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (event) {
-      event.preventDefault();
+  // if (loginForm) {
+  //   loginForm.addEventListener('submit', function (event) {
+  //     event.preventDefault();
 
-      var email = document.getElementById('loginEmail').value;
-      var password = document.getElementById('loginPassword').value;
+  //     var email = document.getElementById('loginEmail').value;
+  //     var password = document.getElementById('loginPassword').value;
 
-      if (email && password) {
-        // For now, just redirect to the dashboard
-        window.location.href = 'dashboard.html';
-      } else {
-        alert('Please enter your email and password.');
-      }
-    });
-  }
+  //     if (email && password) {
+  //       // For now, just redirect to the dashboard
+  //       window.location.href = 'dashboard.html';
+  //     } else {
+  //       alert('Please enter your email and password.');
+  //     }
+  //   });
+  // }
 
 });
+document.addEventListener('DOMContentLoaded', function () {
+
+  fetch("/dashboard-summary")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("totalItems").textContent = data.totalItems;
+      document.getElementById("expiredItems").textContent = data.expiredItems;
+      document.getElementById("expiringSoonItems").textContent = data.expiringSoonItems;
+      document.getElementById("lowStockItems").textContent = data.lowStockItems;
+    })
+    .catch(err => console.error("Dashboard error:", err));
+
+});
+
+if (document.getElementById("recipeSuggestionsGrid")) {
+  fetch("/api/recipes/expiring-soon")
+    .then(res => res.json())
+    .then(meals => {
+      renderRecipeSuggestions(meals);
+    })
+    .catch(err => console.error("Recipe error:", err));
+}

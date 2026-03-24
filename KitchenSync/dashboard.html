@@ -29,11 +29,11 @@
 
       <!-- Left side: Logo + Avatar + Username -->
       <div class="top-nav-left">
-        <a href="index.html" class="ks-logo" style="font-size:1.4rem;">KS</a>
+        <a href="dashboard.html" class="ks-logo" style="font-size:1.4rem;">KS</a>
         <div class="user-avatar">
           <i class="bi bi-person-fill" style="font-size:1.4rem; color:#999;"></i>
         </div>
-        <span class="username">User456</span>
+        <span class="username"><%= username %></span>
       </div>
 
       <!-- Right side: Add + Favorites + Notifications -->
@@ -64,7 +64,7 @@
           <div class="stat-icon total">
             <i class="bi bi-box-seam"></i>
           </div>
-          <span class="stat-number text-blue">4</span>
+          <span class="stat-number text-blue"><h2 id="totalItems">0</h2></span>
           <span class="stat-label">Total Items</span>
         </div>
 
@@ -73,7 +73,7 @@
           <div class="stat-icon expired">
             <i class="bi bi-exclamation-circle"></i>
           </div>
-          <span class="stat-number text-red">3</span>
+          <span class="stat-number text-red"><h2 id="expiredItems">0</h2></span>
           <span class="stat-label">Expired</span>
         </div>
 
@@ -82,7 +82,7 @@
           <div class="stat-icon expiring">
             <i class="bi bi-clock-history"></i>
           </div>
-          <span class="stat-number text-orange">3</span>
+          <span class="stat-number text-orange"><h2 id="expiringSoonItems">0</h2></span>
           <span class="stat-label">Expiring Soon</span>
         </div>
 
@@ -91,7 +91,7 @@
           <div class="stat-icon low-stock">
             <i class="bi bi-graph-down-arrow"></i>
           </div>
-          <span class="stat-number text-orange-dark">2</span>
+          <span class="stat-number text-orange-dark"><h2 id="lowStockItems">0</h2></span>
           <span class="stat-label">Low Stock</span>
         </div>
 
@@ -112,7 +112,7 @@
     <!-- ========== ITEMS LIST SECTIONS ========== -->
 
     <!-- ALL items -->
-    <div class="items-section filter-content" data-content="all" style="display: block;">
+    <!-- <div class="items-section filter-content" data-content="all" style="display: block;">
       <h4>All</h4>
       <div class="items-grid">
 
@@ -157,7 +157,35 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
+
+  <!-- ALL items -->
+<div class="items-section filter-content" data-content="all" style="display: block;">
+  <h4>All</h4>
+  <div class="items-grid" id="allItemsGrid"></div>
+</div>
+<!-- End ALL Section -->
+
+<!-- EXPIRED items -->
+<div class="items-section filter-content" data-content="expired" style="display: none;">
+  <h4>Expired</h4>
+  <div class="items-grid" id="expiredItemsGrid"></div>
+</div>
+<!-- End EXPIRED Section -->
+
+<!-- EXPIRING SOON items -->
+<div class="items-section filter-content" data-content="expiring" style="display: none;">
+  <h4>Expiring Soon</h4>
+  <div class="items-grid" id="expiringItemsGrid"></div>
+</div>
+<!-- End EXPIRING SOON Section -->
+
+<!-- LOW STOCK items -->
+<div class="items-section filter-content" data-content="low-stock" style="display: none;">
+  <h4>Low Stock</h4>
+  <div class="items-grid" id="lowStockItemsGrid"></div>
+</div>
+<!-- End LOW STOCK Section -->
     <!-- End ALL Section -->
 
 

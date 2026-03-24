@@ -32,7 +32,7 @@
       </div>
 
       <!-- Registration Form -->
-      <form id="registerForm" class="login-form">
+      <form id="register" class="login-form" action="/register" method = "POST">
 
         <!-- Username -->
         <div class="mb-3">
@@ -40,37 +40,38 @@
             type="text" 
             class="form-control" 
             id="regUsername" 
+            
             placeholder="Username"
             required
           >
-        </div>
+        
 
         <!-- Email -->
-        <div class="mb-3">
           <input 
             type="email" 
             class="form-control" 
+            name="username"
             id="regEmail" 
             placeholder="Email address"
             required
           >
-        </div>
+        
 
         <!-- Password -->
-        <div class="mb-3">
           <input 
             type="password" 
-            class="form-control" 
+            class="form-control"
+            name="password" 
             id="regPassword" 
             placeholder="Password"
             required
           >
-        </div>
 
         <!-- Confirm Password -->
-        <div class="mb-3">
+
           <input 
             type="password" 
+            
             class="form-control" 
             id="regConfirmPassword" 
             placeholder="Confirm Password"
@@ -109,7 +110,7 @@
   <!-- Simple registration handler -->
   <script>
     document.getElementById('registerForm').addEventListener('submit', function(event) {
-      event.preventDefault();
+
       var password = document.getElementById('regPassword').value;
       var confirm = document.getElementById('regConfirmPassword').value;
 
@@ -118,9 +119,6 @@
         return;
       }
 
-      // For now, just redirect to login
-      alert('Account created! Please sign in.');
-      window.location.href = 'login.html';
     });
   </script>
 
