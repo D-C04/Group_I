@@ -61,8 +61,8 @@
       </a>
     </div>
 
-    <!-- ========== ITEMS LIST (empty for now) ========== -->
-     <div id="pantryItems">
+    <!-- ========== ITEMS LIST ========== -->
+    <div id="pantryItems">
       <% if (!foods || foods.length === 0) { %>
         <div class="empty-state">
           <i class="bi bi-grid-3x3-gap" style="font-size:3rem; margin-bottom:0.5rem;"></i>
@@ -75,7 +75,11 @@
             <div class="item-card searchable-item">
               <div class="item-image">
                 <% if (food.imageUrl) { %>
-                  <img src="<%= food.imageUrl %>" alt="<%= food.name %>" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+                  <img 
+                    src="<%= food.imageUrl %>" 
+                    alt="<%= food.name %>" 
+                    style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
+                  >
                 <% } else { %>
                   <i class="bi bi-image" style="font-size:1.5rem; color:#CCC;"></i>
                 <% } %>
@@ -89,11 +93,26 @@
               <div class="item-time">
                 <%= new Date(food.expiryDate).toLocaleDateString() %>
               </div>
+
+              <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+                <form action="/decrease-quantity" method="POST">
+                  <input type="hidden" name="foodId" value="<%= food._id %>">
+                  <button type="submit" class="btn btn-sm btn-warning">
+                    <i class="bi bi-dash-lg"></i>
+                  </button>
+                </form>
+
+                <form action="/delete-item" method="POST">
+                  <input type="hidden" name="foodId" value="<%= food._id %>">
+                  <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                </form>
+              </div>
             </div>
           <% }) %>
         </div>
       <% } %>
     </div>
+
   </div>
   <!-- End Page Wrapper -->
 

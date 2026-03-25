@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose").default;
+const axios = require("axios");
 const app = express();
 const port = 3000;
 require("dotenv").config(); 
@@ -38,7 +39,25 @@ const foodSchema = new mongoose.Schema({
   imageUrl:String
 
 });
+const recipeSchema = new mongoose.Schema({
+  title: String,
+  image: String,
+  instructions: String,
+  ingredients: [String],
+  source: {
+    type: String,
+    enum: ["manual", "suggested"],
+    default: "manual"
+  },
+  username: String,
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
 
+
+const Recipe = mongoose.model("Recipe", recipeSchema);
 userSchema.plugin(passportLocalMongoose);
 const User = mongoose.model("User", userSchema);
 const Food = mongoose.model("Food", foodSchema);
@@ -64,13 +83,23 @@ app.post("/loginForm",
 );
 
 app.get("/add-item", (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
   res.render("add-item");
 });
 
 app.get("/liked-recipes", (req, res) => {
   res.render("liked-recipes");
 });
+app.get("/add-recipe", (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
 
+  res.render("add-recipe");
+});
 
 
 app.post("/register", async (req, res) => {
@@ -166,7 +195,35 @@ app.get("/dashboard-summary", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+app.post("/add-recipe", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
 
+  try {
+    const ingredientsArray = req.body.ingredients
+      ? req.body.ingredients
+          .split("\n")
+          .map(item => item.trim())
+          .filter(item => item !== "")
+      : [];
+
+    const recipe = new Recipe({
+      title: req.body.title,
+      image: req.body.image,
+      instructions: req.body.instructions,
+      ingredients: ingredientsArray,
+      source: "manual",
+      username: req.user.username
+    });
+
+    await recipe.save();
+    res.redirect("/recipes");
+  } catch (err) {
+    console.log(err);
+    res.send("Error adding recipe");
+  }
+});
 app.get("/api/recipes/expiring-soon", async (req, res) => {
   try {
     const foods = await Food.find();
@@ -208,46 +265,18 @@ app.get("/api/recipes/expiring-soon", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-app.post("/delete-item", async (req, res) => {
+app.get("/recipes", async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/");
   }
 
   try {
-    const foodId = req.body.foodId;
+    const recipes = await Recipe.find({ username: req.user.username }).sort({ createdAt: -1 });
 
-    await Food.findByIdAndDelete(foodId);
-
-    res.redirect("/dashboard");
+    res.render("recipes", { recipes });
   } catch (err) {
     console.log(err);
-    res.send("Error deleting item");
-  }
-});
-app.post("/decrease-quantity", async (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.redirect("/");
-  }
-
-  try {
-    const food = await Food.findById(req.body.foodId);
-
-    if (!food) {
-      return res.redirect("/dashboard");
-    }
-
-    food.quantity = food.quantity - 1;
-
-    if (food.quantity <= 0) {
-      await Food.findByIdAndDelete(req.body.foodId);
-    } else {
-      await food.save();
-    }
-
-    res.redirect("/dashboard");
-  } catch (err) {
-    console.log(err);
-    res.send("Error updating quantity");
+    res.send("Error loading recipes");
   }
 });
 
@@ -293,6 +322,214 @@ app.get("/pantry", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.send("Error loading pantry");
+  }
+});
+app.get("/recipe-suggestions", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    const foods = await Food.find();
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const soonDate = new Date();
+    soonDate.setHours(0, 0, 0, 0);
+    soonDate.setDate(soonDate.getDate() + 3);
+
+    const expiringSoonFoods = foods.filter(food => {
+      if (!food.expiryDate) return false;
+
+      const expiry = new Date(food.expiryDate);
+      expiry.setHours(0, 0, 0, 0);
+
+      return expiry >= today && expiry <= soonDate;
+    });
+
+    const ingredientNames = expiringSoonFoods
+      .map(food => food.name && food.name.trim())
+      .filter(Boolean);
+
+    if (ingredientNames.length === 0) {
+      return res.render("recipe-suggestions", { recipes: [] });
+    }
+
+    let allMeals = [];
+
+    for (const ingredient of ingredientNames) {
+      const response = await axios.get(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${encodeURIComponent(ingredient)}`
+      );
+
+      if (response.data.meals) {
+        allMeals.push(...response.data.meals);
+      }
+    }
+
+    const uniqueMeals = [];
+    const seenIds = new Set();
+
+    allMeals.forEach(meal => {
+      if (!seenIds.has(meal.idMeal)) {
+        seenIds.add(meal.idMeal);
+        uniqueMeals.push(meal);
+      }
+    });
+
+    const detailedRecipes = [];
+
+    for (const meal of uniqueMeals.slice(0, 8)) {
+      const detailResponse = await axios.get(
+        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal.idMeal}`
+      );
+
+      const fullMeal = detailResponse.data.meals[0];
+
+      const ingredients = [];
+      for (let i = 1; i <= 20; i++) {
+        const ingredient = fullMeal[`strIngredient${i}`];
+        const measure = fullMeal[`strMeasure${i}`];
+
+        if (ingredient && ingredient.trim() !== "") {
+          ingredients.push(`${measure ? measure : ""} ${ingredient}`.trim());
+        }
+      }
+
+      detailedRecipes.push({
+        title: fullMeal.strMeal,
+        image: fullMeal.strMealThumb,
+        instructions: fullMeal.strInstructions,
+        ingredients: ingredients
+      });
+    }
+
+    res.render("recipe-suggestions", { recipes: detailedRecipes });
+
+  } catch (error) {
+    console.log(error);
+    res.send("Error loading recipe suggestions");
+  }
+});
+app.post("/recipes/save", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    let ingredients = req.body.ingredients;
+
+    if (!Array.isArray(ingredients)) {
+      ingredients = ingredients ? [ingredients] : [];
+    }
+
+    const newRecipe = new Recipe({
+      title: req.body.title,
+      image: req.body.image,
+      instructions: req.body.instructions,
+      ingredients: ingredients,
+      source: "suggested",
+      username: req.user.username
+    });
+
+    await newRecipe.save();
+    res.redirect("/recipes");
+  } catch (error) {
+    console.log(error);
+    res.send("Could not save recipe");
+  }
+});
+app.get("/liked-recipes", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    const recipes = await Recipe.find({ username: req.user.username }).sort({ createdAt: -1 });
+
+    res.render("liked-recipes", {
+      username: req.user.username,
+      recipes: recipes
+    });
+  } catch (err) {
+    console.log(err);
+    res.send("Error loading liked recipes");
+  }
+});
+
+
+app.post("/delete-item", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    const foodId = req.body.foodId;
+
+    await Food.findByIdAndDelete(foodId);
+
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+    res.send("Error deleting item");
+  }
+});
+app.post("/decrease-quantity", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    const food = await Food.findById(req.body.foodId);
+
+    if (!food) {
+      return res.redirect("/dashboard");
+    }
+
+    food.quantity = food.quantity - 1;
+
+    if (food.quantity <= 0) {
+      await Food.findByIdAndDelete(req.body.foodId);
+    } else {
+      await food.save();
+    }
+
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+    res.send("Error updating quantity");
+  }
+});
+app.post("/delete-recipe", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    await Recipe.findByIdAndDelete(req.body.recipeId);
+    res.redirect("/recipes");
+  } catch (err) {
+    console.log(err);
+    res.send("Error deleting recipe");
+  }
+});
+app.get("/recipes/:id", async (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+
+    if (!recipe) {
+      return res.send("Recipe not found");
+    }
+
+    res.render("recipe-details", { recipe });
+  } catch (err) {
+    console.log(err);
+    res.send("Error loading recipe");
   }
 });
 

@@ -40,16 +40,12 @@
 
       <!-- Right side: Add + Favorites + Notifications -->
       <div class="top-nav-right">
-        <a href="/add-item" class="icon-btn" title="Add Item">
-          <i class="bi bi-plus-lg"></i>
-        </a>
         <a href="/liked-recipes" class="icon-btn" title="Liked Recipes">
           <i class="bi bi-suit-heart-fill"></i>
         </a>
-        <a href="#" class="icon-btn notification-badge" title="Notifications">
-          <i class="bi bi-bell-fill"></i>
-          <span class="badge-dot"></span>
-        </a>
+       <a href="#" class="icon-btn" data-bs-toggle="modal" data-bs-target="#addChoiceModal">
+            <i class="bi bi-plus-lg"></i>
+       </a>
       </div>
 
     </div>
@@ -123,6 +119,13 @@
             <i class="bi bi-snow"></i>
           </div>
           <span class="storage-label">Freezer</span>
+        </a>
+
+        <a href="/recipes" class="storage-item">
+          <div class="storage-icon">
+            <i class="bi bi-book"></i>
+          </div>
+          <span class="storage-label">Recipes</span>
         </a>
 
       </div>
@@ -418,19 +421,20 @@
 
 
     <!-- ========== RECIPE SUGGESTIONS (Horizontal Scroll) ========== -->
-    <div class="recipe-suggestions">
-  <h4>Recipe Suggestions</h4>
-  <div style="display:flex; align-items:center;">
-    <div class="recipe-scroll" id="recipeSuggestionsGrid" style="flex:1;">
-      <p>Loading recipes...</p>
+    <div class="recipe-suggestions-card">
+  <div class="recipe-suggestions-header">
+    <div>
+      <h4 class="mb-1">Recipe Suggestions</h4>
+      <p class="text-muted mb-0">Ideas based on your available ingredients</p>
     </div>
 
-    <div class="load-more-arrow">
-      <a href="/recipes">
-        <i class="bi bi-arrow-right" style="font-size:1.5rem;"></i><br>
-        <small>Load more</small>
-      </a>
-    </div>
+    <a href="/recipe-suggestions" class="view-all-btn">
+      View All <i class="bi bi-arrow-right"></i>
+    </a>
+  </div>
+
+  <div class="recipe-scroll" id="recipeSuggestionsGrid">
+    <p>Loading recipes...</p>
   </div>
 </div>
     <!-- End Recipe Suggestions -->
@@ -570,10 +574,34 @@
     });
   });
 </script>
+
   <!-- Our Custom JS -->
   <script src="/js/app.js"></script>
   
+<div class="modal fade" id="addChoiceModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:300px;">
+    <div class="modal-content" style="border-radius:16px;">
 
+      <div class="modal-header">
+        <h5 class="modal-title">Add New</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" style="display:flex; flex-direction:column; gap:10px;">
+
+        <a href="/add-item" class="btn btn-primary">
+          <i class="bi bi-box-seam"></i> Add Food Item
+        </a>
+
+        <a href="/add-recipe" class="btn btn-success">
+          <i class="bi bi-journal-text"></i> Add Recipe
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
