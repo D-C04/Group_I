@@ -82,44 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ============================================
-  // 4. ADD ITEM FORM SUBMISSION (Add Item page)
-  // ============================================
-  // var addItemForm = document.getElementById('addItemForm');
-
-  // if (addItemForm) {
-  //   addItemForm.addEventListener('submit', function (event) {
-  //     event.preventDefault(); // Stop the form from actually submitting
-
-  //     var itemName = document.getElementById('itemName').value;
-  //     var quantity = document.getElementById('quantityValue').value;
-  //     var expiryDate = document.getElementById('expiryDate').value;
-
-  //     // Find which storage location is selected
-  //     var selectedStorage = 'None';
-  //     assignBtns.forEach(function (btn) {
-  //       if (btn.classList.contains('active')) {
-  //         selectedStorage = btn.textContent;
-  //       }
-  //     });
-
-  //     // For now, just show an alert. Later this will connect to the backend.
-  //     alert(
-  //       'Item Added!\n\n' +
-  //       'Name: ' + itemName + '\n' +
-  //       'Quantity: ' + quantity + '\n' +
-  //       'Storage: ' + selectedStorage + '\n' +
-  //       'Expiry Date: ' + expiryDate
-  //     );
-
-  //     // Reset the form
-  //     addItemForm.reset();
-  //     document.getElementById('quantityValue').value = '1';
-  //     assignBtns.forEach(function (b) {
-  //       b.classList.remove('active');
-  //     });
-  //   });
-  // }
+  
 
   // ============================================
   // 5. SEARCH FILTERING (Storage & Recipe pages)
@@ -143,26 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // ============================================
-  // 6. SIGN IN FORM (Login page)
-  // ============================================
-  // var loginForm = document.getElementById('loginForm');
-
-  // if (loginForm) {
-  //   loginForm.addEventListener('submit', function (event) {
-  //     event.preventDefault();
-
-  //     var email = document.getElementById('loginEmail').value;
-  //     var password = document.getElementById('loginPassword').value;
-
-  //     if (email && password) {
-  //       // For now, just redirect to the dashboard
-  //       window.location.href = 'dashboard.html';
-  //     } else {
-  //       alert('Please enter your email and password.');
-  //     }
-  //   });
-  // }
 
 });
 document.addEventListener('DOMContentLoaded', function () {
@@ -188,47 +131,7 @@ if (document.getElementById("recipeSuggestionsGrid")) {
     .catch(err => console.error("Recipe error:", err));
 }
 
-// const assignBtns = document.querySelectorAll(".assign-btn");
-// const storageInput = document.getElementById("storageValue");
-// const itemNameInput = document.getElementById("itemName");
-// const imagePreview = document.getElementById("imagePreview");
-// const imageUrlInput = document.getElementById("imageUrl");
-// assignBtns.forEach(btn => {
-//   btn.addEventListener("click", () => {
-//     storageInput.value = btn.textContent.toLowerCase();
-//   });
-// });
 
-
-// if (itemNameInput && imagePreview && imageUrlInput) {
-//   let imageSearchTimeout;
-
-//   itemNameInput.addEventListener("input", function () {
-//     const itemName = this.value.trim();
-
-//     clearTimeout(imageSearchTimeout);
-
-//     if (!itemName) {
-//       imagePreview.innerHTML = `<i class="bi bi-image"></i>`;
-//       imageUrlInput.value = "";
-//       return;
-//     }
-
-//     imageSearchTimeout = setTimeout(() => {
-//       const imageUrl = `https://source.unsplash.com/400x300/?${encodeURIComponent(itemName)},food`;
-
-//       imagePreview.innerHTML = `
-//         <img 
-//           src="${imageUrl}" 
-//           alt="${itemName}" 
-//           style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
-//         >
-//       `;
-
-//       imageUrlInput.value = imageUrl;
-//     }, 500);
-//   });
-// }
 
 const itemNameInput = document.getElementById("itemName");
 const imagePreview = document.getElementById("imagePreview");
@@ -268,12 +171,7 @@ if (itemNameInput && imagePreview && imageUrlInput) {
       const imageUrl = `https://www.themealdb.com/images/ingredients/${encodeURIComponent(itemName.toLowerCase())}.png`;
       
       imagePreview.innerHTML = `
-<img 
-  src="${imageUrl}"
-  style="width:100%; height:100%; object-fit:cover; border-radius:12px;"
-  onerror="this.style.border='3px solid red'"
->
-`;
+       <img src="${imageUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:12px;" onerror="this.style.border='3px solid red'">`;
 
       imageUrlInput.value = imageUrl;
 
@@ -288,7 +186,7 @@ if (itemNameInput && imagePreview && imageUrlInput) {
   });
 }
 
-// Store selected storage in hidden input
+
 if (assignBtns.length && storageInput) {
   assignBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {

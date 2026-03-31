@@ -326,6 +326,7 @@ app.get("/pantry", async (req, res) => {
     res.send("Error loading pantry");
   }
 });
+
 app.get("/recipe-suggestions", async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/");
@@ -414,6 +415,7 @@ app.get("/recipe-suggestions", async (req, res) => {
     res.send("Error loading recipe suggestions");
   }
 });
+
 app.post("/recipes/save", async (req, res) => {
   if (!req.isAuthenticated()) {
     return res.redirect("/");
