@@ -79,6 +79,8 @@ index.html (Welcome)
 ## How To Run The Code
 - Ensure your Mongo is connected
 - Install the following extenseion 
+```
+
     └──>npm install axios
     └──>npm install init
     └──>npm install passport-local-mongoose
@@ -87,5 +89,6 @@ index.html (Welcome)
     └──>npm install passport
     └──>npm install passport-local
     └──>npm express-session
--After that direct directory and ensure you are in Kitchen Sync folder
--Then launch node server.js
+```  
+- After that direct directory and ensure you are in Kitchen Sync folder
+- Then launch node server.js
