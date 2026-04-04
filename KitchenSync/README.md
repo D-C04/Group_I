@@ -14,21 +14,28 @@ Alternatively, just double-click `index.html` to open it directly in your browse
 ## File Structure
 ```
 kitchensync/
-├── index.html            <-- Welcome/Landing page (start here)
-├── login.html            <-- Sign In page
-├── register.html         <-- Create Account page
-├── dashboard.html        <-- Main Dashboard (overview, items, recipes, storage)
-├── recipes.html          <-- Browse Recipes page
-├── liked-recipes.html    <-- Liked/Saved Recipes page
-├── fridge.html           <-- Fridge storage view
-├── pantry.html           <-- Pantry storage view
-├── freezer.html          <-- Freezer storage view
-├── add-item.html         <-- Add New Item form
+├── views/
+│   └── index.ejs             <-- Welcome/Landing page (start here)
+│   └──login.ejs             <-- Sign In page
+│   └── register.ejs          <-- Create Account page
+│   └──dashboard.ejs         <-- Main Dashboard (overview, items, recipes, storage)
+│   └── recipes.ejs           <-- Browse Recipes page
+│   └── liked-recipes.ejs     <-- Liked/Saved Recipes page
+│   └── fridge.ejs            <-- Fridge storage view
+│   └── pantry.ejs            <-- Pantry storage view
+│   └──freezer.ejs           <-- Freezer storage view
+│   └── add-item.ejs          <-- Add New Item form
+│   └──recipes.ejs           <-- Check recipe
+│   └── add-recipe.ejs        <-- Add Recipe Item
+│   └── liked-recipes.ejs     <-- Check liked recipes
+│   └── recipe.ejs            <-- check all recipes
+│   └── recipe-suggestions.ejs<-- Shows suggestion from the API
+
 ├── css/
-│   └── style.css         <-- All custom styles (colors, layout, components)
+│   └── style.ejs         <-- All custom styles (colors, layout, components)
 ├── js/
-│   └── app.js            <-- All interactivity (search overlay, tabs, forms)
-├── images/               <-- Folder for images (empty for now, add images here later)
+│   └── app.ejs           <-- All interactivity (search overlay, tabs, forms)
+├── server.js             <-- Used to run the code 
 └── README.md             <-- This file
 ```
 
