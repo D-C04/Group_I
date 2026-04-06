@@ -1,61 +1,50 @@
-const express  = require('express');
-const router   = express.Router();
-const fs       = require('fs');
-const path     = require('path');
-
-const USERS_FILE = path.join(__dirname, '..', 'users.json');
-
-function readUsers() {
-  return JSON.parse(fs.readFileSync(USERS_FILE, 'utf8'));
-}
-
-function writeUsers(users) {
-  fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
-}
+const express = require('express');
+const router  = express.Router();
+const User    = require('../models/User');
 
 // POST /auth/register
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
     return res.render('register', { error: 'All fields are required.' });
   }
 
-  const users = readUsers();
-  if (users.find(u => u.email === email || u.username === username)) {
-    return res.render('register', { error: 'Username or email is already taken.' });
+  try {
+    const existing = await User.findOne({ $or: [{ email }, { username }] });
+    if (existing) {
+      return res.render('register', { error: 'Username or email is already taken.' });
+    }
+
+    await User.create({ username, email, password });
+    res.redirect('/login?registered=1');
+  } catch (err) {
+    console.error(err);
+    res.render('register', { error: 'Something went wrong. Please try again.' });
   }
-
-  const newUser = {
-    id: 'user_' + Date.now(),
-    username,
-    email,
-    password
-  };
-  users.push(newUser);
-  writeUsers(users);
-
-  res.redirect('/login?registered=1');
 });
 
 // POST /auth/login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
     return res.render('login', { error: 'Please enter your email and password.', success: null });
   }
 
-  const users = readUsers();
-  const user  = users.find(u => u.email === email && u.password === password);
+  try {
+    const user = await User.findOne({ email });
+    if (!user || !(await user.comparePassword(password))) {
+      return res.render('login', { error: 'Invalid email or password.', success: null });
+    }
 
-  if (!user) {
-    return res.render('login', { error: 'Invalid email or password.', success: null });
+    req.session.userId   = user._id.toString();
+    req.session.username = user.username;
+    res.redirect('/dashboard');
+  } catch (err) {
+    console.error(err);
+    res.render('login', { error: 'Something went wrong. Please try again.', success: null });
   }
-
-  req.session.userId   = user.id;
-  req.session.username = user.username;
-  res.redirect('/dashboard');
 });
 
 // GET /auth/logout
