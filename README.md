@@ -234,6 +234,4 @@ GET /auth/logout ──> /login
 - Sign out
 
 ### Not Yet Implemented
-- "Forgot your password?" link (no reset flow)
 - Food item images (placeholder icons only)
-- Recipe creation or editing via the UI (recipes are seeded from seed-recipes.js only)
