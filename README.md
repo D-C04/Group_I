@@ -18,7 +18,7 @@ The project will allow users to keep track of their food inventory and give user
 
 This web application will allow for:
 * Users to input any food items into any designated storages
-* Users to track expiry dates on their food items
+* Users to optionnally input and track expiry dates on their food items
 * Users to receive in-app notifications on their items that are expiring soon and items that have expired
 * Users to receive recipe suggestions based on food items stored and/or items nearing expiry date
 * Users to browse and save recipes
