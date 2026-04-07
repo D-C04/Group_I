@@ -85,6 +85,8 @@ index.html (Welcome)
 
 ## How To Run The Code
 - Ensure your Mongo is connected
+- Create env and input 
+DB_SECRET=secretvalue
 - Install the following extenseion 
 ```
 
