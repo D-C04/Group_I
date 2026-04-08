@@ -105,8 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var idx   = this.getAttribute('data-recipe-index');
         var recipe;
 
-        // recipes.ejs uses 'u0', 'u1' for urgent and 'r0', 'r1' for regular
-        if (typeof urgentRecipes !== 'undefined' && idx && idx[0] === 'u') {
+        // recipes.ejs uses 'u0','u1' for urgent and 'r0','r1' for regular
+        // dashboard.ejs uses 'd0','d1','d2'
+        if (typeof dashboardRecipes !== 'undefined' && idx && idx[0] === 'd') {
+          recipe = dashboardRecipes[parseInt(idx.slice(1))];
+        } else if (typeof urgentRecipes !== 'undefined' && idx && idx[0] === 'u') {
           recipe = urgentRecipes[parseInt(idx.slice(1))];
         } else if (typeof regularRecipes !== 'undefined' && idx && idx[0] === 'r') {
           recipe = regularRecipes[parseInt(idx.slice(1))];
