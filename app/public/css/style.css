@@ -74,39 +74,45 @@ body {
    WELCOME / LANDING PAGE
    =================================================== */
 .welcome-page {
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 2rem;
-  background-color: #000000;
+  padding: 4rem 3rem;
+  background-color: #7A6A52;
   background-image:
     linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.7),
-      rgba(0, 0, 0, 0.85)
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.2)
     );
   position: relative;
 }
 
 .welcome-circle {
-  width: 280px;
-  height: 280px;
+  width: 255px;
+  height: 255px;
+  min-width: 255px;
+  min-height: 255px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: rgba(180, 160, 120, 0.4);
+  background-color: rgba(245, 240, 225, 0.25);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .welcome-circle h1 {
   color: var(--gold);
-  font-size: 1.8rem;
+  font-size: 1.55rem;
   font-weight: 800;
   text-transform: uppercase;
   line-height: 1.2;
@@ -114,10 +120,10 @@ body {
 
 .welcome-tagline {
   color: var(--bg-cream);
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 300;
   font-style: italic;
-  margin-bottom: 2rem;
+  margin-bottom: 1.75rem;
 }
 
 .btn-get-started {
@@ -139,31 +145,35 @@ body {
 
 @media (min-width: 768px) {
   .welcome-circle {
-    width: 360px;
-    height: 360px;
+    width: 320px;
+    height: 320px;
+    min-width: 320px;
+    min-height: 320px;
   }
   .welcome-circle h1 {
-    font-size: 2.5rem;
+    font-size: 2.1rem;
   }
   .welcome-tagline {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
   }
   .btn-get-started {
-    font-size: 1.2rem;
-    padding: 0.85rem 3rem;
+    font-size: 1.1rem;
+    padding: 0.75rem 2.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .welcome-circle {
-    width: 420px;
-    height: 420px;
+    width: 370px;
+    height: 370px;
+    min-width: 370px;
+    min-height: 370px;
   }
   .welcome-circle h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   .welcome-tagline {
-    font-size: 3.2rem;
+    font-size: 2.6rem;
   }
 }
 
