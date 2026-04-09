@@ -1,20 +1,41 @@
 const BASE = 'https://www.themealdb.com/api/json/v1/1';
 
+const cache = new Map();
+const TTL   = 10 * 60 * 1000; // 10 minutes
+
+function cacheGet(key) {
+  const entry = cache.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.ts > TTL) { cache.delete(key); return null; }
+  return entry.value;
+}
+function cacheSet(key, value) { cache.set(key, { value, ts: Date.now() }); }
+
 async function filterByIngredient(ingredient) {
+  const key = 'fi:' + ingredient.toLowerCase();
+  const hit = cacheGet(key);
+  if (hit) return hit;
   try {
-    const res  = await fetch(`${BASE}/filter.php?i=${encodeURIComponent(ingredient)}`);
-    const data = await res.json();
-    return data.meals || [];
+    const res   = await fetch(`${BASE}/filter.php?i=${encodeURIComponent(ingredient)}`);
+    const data  = await res.json();
+    const meals = data.meals || [];
+    if (meals.length > 0) cacheSet(key, meals); // skip caching empty — may be a rate-limited response
+    return meals;
   } catch {
     return [];
   }
 }
 
 async function lookupMeal(id) {
+  const key = 'lm:' + id;
+  const hit = cacheGet(key);
+  if (hit) return hit;
   try {
     const res  = await fetch(`${BASE}/lookup.php?i=${id}`);
     const data = await res.json();
-    return data.meals ? data.meals[0] : null;
+    const meal = data.meals ? data.meals[0] : null;
+    if (meal) cacheSet(key, meal);
+    return meal;
   } catch {
     return null;
   }
