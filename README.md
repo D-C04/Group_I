@@ -106,7 +106,8 @@ The app is deployed and publicly accessible at:
 
 6. Open your browser and go to `http://localhost:3000`
 
-> A test account is created automatically on first run — sign in with `test@kitchensync.local` / `test1234`, or register your own account.
+> Use test Account — sign in with 
+> Email: `test@kitchensync.local` / Password: `test1234`
 
 ---
 
