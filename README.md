@@ -6,6 +6,9 @@
 
 Welcome to the repository for the ENSE 281 Group Project done by Group I.
 
+# Link to Project Advertisement
+https://youtu.be/uh_Tv1jg-RA 
+
 ## Project Introduction & Background 📝
 
 This web application aims to reduce household food waste and aid in decision making by creating a system that provides its users with various recipes and the tools to track food inventory whilst simultaneously allowing them to track food expiration dates.
